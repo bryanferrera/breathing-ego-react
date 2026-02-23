@@ -29,26 +29,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Label — anchored to section, always below navbar ── */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4, duration: 1 }}
-        className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2 text-[12px] z-20"
-        style={{
-          top: '80px',
-          fontFamily: 'Poppins, sans-serif',
-          fontWeight: 700,
-          letterSpacing: '1.8px',
-          textTransform: 'uppercase',
-          whiteSpace: 'nowrap',
-        }}
-      >
-        <span style={{ color: 'rgba(247,245,240,0.6)' }}>A book by Nic Sementa</span>
-        <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
-        <span style={{ color: 'rgba(255,255,255,0.6)' }}>Available now</span>
-      </motion.div>
-
       {/* ── Hero Content ── */}
       <div className="relative z-10 flex flex-col min-h-screen items-center w-full px-4 md:px-8 xl:px-0 xl:justify-end xl:pb-[100px]">
 
@@ -65,6 +45,26 @@ export default function Hero() {
           xl:flex-none xl:relative xl:w-full xl:max-w-[1200px] xl:h-[725px]
           xl:gap-0 xl:pt-0 xl:pb-0 xl:mt-[140px]
         ">
+
+          {/* ── Label — just above title, tracks it on all screen heights ── */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4, duration: 1 }}
+            className="flex items-center gap-2 text-[12px]
+                       xl:absolute xl:left-1/2 xl:-translate-x-1/2 xl:top-[18px]"
+            style={{
+              fontFamily: 'Poppins, sans-serif',
+              fontWeight: 700,
+              letterSpacing: '1.8px',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <span style={{ color: 'rgba(247,245,240,0.6)' }}>A book by Nic Sementa</span>
+            <span style={{ color: 'rgba(255,255,255,0.2)' }}>|</span>
+            <span style={{ color: 'rgba(255,255,255,0.6)' }}>Available now</span>
+          </motion.div>
 
           {/* ── Title ──
               Mobile : centered, fluid clamp size
