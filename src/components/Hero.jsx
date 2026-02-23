@@ -63,7 +63,7 @@ export default function Hero() {
         <div className="
           flex-1 flex flex-col items-center text-center w-full gap-8 pt-44 pb-12
           xl:flex-none xl:relative xl:w-full xl:max-w-[1200px] xl:h-[725px]
-          xl:gap-0 xl:pt-0 xl:pb-0
+          xl:gap-0 xl:pt-0 xl:pb-0 xl:mt-[140px]
         ">
 
           {/* ── Title ──
