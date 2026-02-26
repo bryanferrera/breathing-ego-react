@@ -262,7 +262,7 @@ function SymptomRow({ num, body, index, total, scrollYProgress }) {
   const seg = 1 / total
   const start = index * seg
   const end = start + seg
-  const t = seg * 0.18 // short fade zone at edges
+  const t = seg * 0.32 // wider overlap for smoother cross-fades
 
   const activity = useTransform(
     scrollYProgress,
@@ -270,12 +270,11 @@ function SymptomRow({ num, body, index, total, scrollYProgress }) {
     [0, 1, 1, 0]
   )
 
-  const opacity     = useTransform(activity, [0, 1], [0.22, 1])
-  const scale       = useTransform(activity, [0, 1], [0.82, 1])
-  const numOpacity  = useTransform(activity, [0, 1], [0.3, 1])
-  const borderColor = useTransform(activity, [0, 1], ['rgba(196,168,122,0.15)', '#c4a87a'])
-  const textColor   = useTransform(activity, [0, 1], ['#b0a79d', '#f7f5f0'])
-  const fontSize    = useTransform(activity, [0, 1], ['1rem', '1.75rem'])
+  const opacity     = useTransform(activity, [0, 1], [0.18, 1])
+  const scale       = useTransform(activity, [0, 1], [0.8, 1])
+  const numOpacity  = useTransform(activity, [0, 1], [0.25, 1])
+  const borderColor = useTransform(activity, [0, 1], ['rgba(196,168,122,0.1)', '#c4a87a'])
+  const textColor   = useTransform(activity, [0, 1], ['#7a716a', '#f7f5f0'])
 
   return (
     <motion.div
@@ -310,7 +309,7 @@ function SymptomRow({ num, body, index, total, scrollYProgress }) {
         style={{
           fontFamily: "'Playfair Display', Georgia, serif",
           fontWeight: 400,
-          fontSize,
+          fontSize: '1.6rem',
           lineHeight: 1.35,
           letterSpacing: '-0.01em',
           color: textColor,
@@ -326,9 +325,15 @@ function SymptomRow({ num, body, index, total, scrollYProgress }) {
 export function Symptoms() {
   const containerRef = useRef(null)
 
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: rawProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
+  })
+
+  const scrollYProgress = useSpring(rawProgress, {
+    stiffness: 100,
+    damping: 28,
+    restDelta: 0.0005,
   })
 
   const items = [
@@ -354,6 +359,7 @@ export function Symptoms() {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        paddingBottom: '6rem',
       }}>
 
         {/* Header */}
@@ -395,23 +401,6 @@ export function Symptoms() {
           ))}
         </div>
 
-        {/* Progress bar */}
-        <div style={{
-          position: 'absolute',
-          bottom: '2.5rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'min(740px, calc(100% - 4rem))',
-          height: 1,
-          background: 'rgba(196,168,122,0.15)',
-        }}>
-          <motion.div style={{
-            height: '100%',
-            background: '#c4a87a',
-            scaleX: scrollYProgress,
-            transformOrigin: 'left',
-          }} />
-        </div>
 
       </div>
     </section>
